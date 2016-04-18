@@ -1,0 +1,204 @@
+<html>
+<head>
+    <script src="https://twitter.github.io/typeahead.js/js/jquery-1.10.2.min.js"></script>
+    <script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+    <style>
+    @font-face {
+  font-family: "Prociono";
+  src: url("../font/Prociono-Regular-webfont.ttf");
+}
+
+html {
+  overflow-y: scroll;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 750px;
+  text-align: center;
+}
+
+.tt-dropdown-menu {
+  text-align: left;
+}
+
+html {
+  color: #333333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.title,
+.example-name {
+  font-family: Prociono;
+}
+
+p {
+  margin: 0 0 10px;
+}
+
+.title {
+  font-size: 64px;
+  margin: 20px 0 0;
+}
+
+.example {
+  padding: 30px 0;
+}
+
+.example-name {
+  font-size: 32px;
+  margin: 20px 0;
+}
+
+.demo {
+  margin: 50px 0;
+  position: relative;
+}
+
+.typeahead,
+.tt-query,
+.tt-hint {
+  border: 2px solid #CCCCCC;
+  border-radius: 8px 8px 8px 8px;
+  font-size: 24px;
+  height: 30px;
+  line-height: 30px;
+  outline: medium none;
+  padding: 8px 12px;
+  width: 396px;
+}
+
+.typeahead {
+  background-color: #FFFFFF;
+}
+
+.typeahead:focus {
+  border: 2px solid #0097CF;
+}
+
+.tt-query {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.tt-hint {
+  color: #999999;
+}
+
+.tt-dropdown-menu {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px 8px 8px 8px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 12px;
+  padding: 8px 0;
+  width: 422px;
+}
+
+.tt-suggestion {
+  font-size: 18px;
+  line-height: 24px;
+  padding: 3px 20px;
+}
+
+.tt-suggestion.tt-cursor {
+  background-color: #0097CF;
+  color: #FFFFFF;
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+.gist {
+  font-size: 14px;
+}
+
+.example-twitter-oss .tt-suggestion {
+  padding: 8px 20px;
+}
+
+.example-twitter-oss .tt-suggestion + .tt-suggestion {
+  border-top: 1px solid #CCCCCC;
+}
+
+.example-twitter-oss .repo-language {
+  float: right;
+  font-style: italic;
+}
+
+.example-twitter-oss .repo-name {
+  font-weight: bold;
+}
+
+.example-twitter-oss .repo-description {
+  font-size: 14px;
+}
+
+.example-sports .league-name {
+  border-bottom: 1px solid #CCCCCC;
+  margin: 0 20px 5px;
+  padding: 3px 0;
+}
+
+.example-arabic .tt-dropdown-menu {
+  text-align: right;
+}
+
+    </style>
+</head>
+<body>
+    <div id="remote">
+        <input id="search" class="typeahead" type="text" placeholder="Search for pattern, principle, refactoring or smell..." />
+    </div>
+    <div id="results">
+    </div>
+</body>
+<script type="text/javascript">
+    var setAuthenticationHeaders = function(){
+        $(document).ajaxSend(function(event, jqXHR, ajaxOptions) {
+            jqXHR.setRequestHeader('api-key', 'D3A49D7AF72254C48F8615806416EA27');
+        });
+    },
+
+        configureBloodhound = function(){
+            var articles = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                limit: 8,
+                remote: { 
+                    url : 'https://codereview.search.windows.net/indexes/articles/docs/suggest?suggesterName=sg&fuzzy=true&api-version=2015-02-28&search=%QUERY',
+                    wildcard : '%QUERY',
+                    transform: function(response){
+                        return $.map(response.value, function(result) {
+                            return {
+                              value: result["@search.text"]
+                            };
+                        });
+                    }
+                }
+            });
+
+            articles.initialize();
+
+            $('#remote .typeahead').typeahead(null, {
+                display: 'value',
+                source: articles
+            }).on('typeahead:selected', function(obj, datum){
+                console.log(obj);
+                console.log(datum);
+
+                $('#results').html('<h2>Result</h2>'+ datum.value);
+            });
+        };
+
+    
+
+    $(function(){
+        setAuthenticationHeaders();
+        configureBloodhound();
+    });
+</script>
+</html>
