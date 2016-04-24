@@ -49,13 +49,17 @@
 
                 $('#results').html('<h2>Result</h2>'+ datum.value);
             });
-        };
+        },
+      focus = function(){
+        $('#search').focus();
+      };
 
     
 
     $(function(){
         setAuthenticationHeaders();
         configureBloodhound();
+        focus();
     });
 </script>
 </html>
