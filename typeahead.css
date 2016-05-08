@@ -1,22 +1,3 @@
-@font-face {
-  font-family: "Prociono";
-  src: url("../font/Prociono-Regular-webfont.ttf");
-}
-
-html {
-  overflow-y: scroll;
-  color: #333333;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  line-height: 1.2;
-}
-
-.container {
-  margin: 0 auto;
-  max-width: 750px;
-  text-align: center;
-}
-
 .tt-dropdown-menu {
   text-align: left;
 }
@@ -40,7 +21,7 @@ p {
   line-height: 30px;
   outline: medium none;
   padding: 8px 12px;
-  width: 396px;
+  width: 100%;
 }
 
 .typeahead {
