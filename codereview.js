@@ -32,12 +32,7 @@ var setAuthenticationHeaders = function(){
             display: function(data){ return data.name; },
             templates: {
                 empty: '<div>Unable to find anything based on your search criteria.</div>',
-                suggestion: function(data){ 
-                    return '<div>' +
-                                '<div class="suggestion-name">'  + data.name + '</div>' +
-                                '<div class="suggestion-stats">' + data.type + '</div>' +
-                            '</div>';
-                }
+                suggestion: Handlebars.compile('<div><div class="suggestion-name">{{name}}</div><div class="suggestion-stats">{{type}}</div></div>')
             },
         }).on('typeahead:selected', function(obj, datum){
             console.log(obj);
