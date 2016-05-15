@@ -32,7 +32,15 @@ configureBloodhound = function(){
         display: function(data){ return data.name; },
         templates: {
             empty: '<div>Unable to find anything based on your search criteria.</div>',
-            suggestion: Handlebars.compile('<div><div class="suggestion-name">{{name}}</div><div class="suggestion-stats">{{type}}</div></div>')
+            suggestion: Handlebars.compile(
+                '<div class="suggestion">' +
+                    '<div>' +
+                        '<div class="name">{{name}}</div>' + 
+                        '<div class="stats">{{type}}</div>' +
+                        '<div class="clearB"></div>' +
+                    '</div>' +
+                    '<div class="summary">{{summary}}</div>' +
+                '</div>')
         },
     }).on('typeahead:selected', function(obj, datum){
         console.log(obj);

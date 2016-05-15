@@ -25,14 +25,23 @@ body {
     text-align: left;
 }
 
-div.suggestion-name {
-    font-weight: bold;
+div.suggestion{
     text-align: left;
 }
-div.suggestion-stats {
-    font-size: 0.8em;
-    text-align: right;
+
+div.suggestion div.name {
+    font-weight: bold;
+    float: left;
 }
+div.suggestion div.summary{
+    font-size: 0.7em;
+}
+div.suggestion div.stats {
+    font-size: 0.8em;
+    float: right;
+}
+
+.clearB { clear: both; }
 
 .typeahead {
     border: 1px;
@@ -45,5 +54,6 @@ div.suggestion-stats {
 div.tt-menu{
     background-color: white;
     color: black;
-    margin: 12px;
+    margin-top: 12px;
+    width: 100%;
 }
