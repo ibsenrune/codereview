@@ -16,7 +16,7 @@ configureBloodhound = function(){
                 return $.map(response.value, function(result) {
                     console.log(result);
                     return {
-                        name: result["@search.text"],
+                        name: result["name"],
                         summary: result["summary"],
                         type: result["type"]
                     };
