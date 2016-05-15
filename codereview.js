@@ -90,7 +90,7 @@ setBackground = function(){
 },
 setOverlay = function(){
     var bgImageUrl = getBackgroundImageUrl();
-    var bg = 'linear-gradient(rgba(100, 100, 100, 0.90), rgba(100, 100, 100, 0.90)), ' + bgImageUrl;
+    var bg = 'linear-gradient(rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.80)), ' + bgImageUrl;
     
     $('body').css('background', bg);
     $('body').css('background-size', '100% 100%');
