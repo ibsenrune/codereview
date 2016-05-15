@@ -13,6 +13,8 @@ body {
   text-align: center;
 }
 
+#remote { margin-top: 200px; }
+
 #remote input { color: #333; }
 
 #remote .twitter-typeahead{
@@ -30,6 +32,14 @@ div.suggestion-name {
 div.suggestion-stats {
     font-size: 0.8em;
     text-align: right;
+}
+
+.typeahead {
+    border: 1px;
+}
+
+.typeahead:focus{
+    border: 1px solid #0097CF
 }
 
 div.tt-menu{
