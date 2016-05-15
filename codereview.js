@@ -61,33 +61,58 @@ configureBloodhound = function(){
                 
             result = result + references 
         }
-            
-
+        
         $('#results').html(result);
+        setOverlay();
     });
 },
 focus = function(){
     $('#search').focus();
 },
-calculateBackgroundImageName = function(){
+getBackgroundImageUrl = function(){
     var numBgImages = 31;
     var today = new Date();
     var date = today.getDate();
     var index = date % numBgImages;
     var imageName = index < 10 ? '0' + index : index;
-    return imageName + '.jpg';
+    var file = imageName + '.jpg';
+    var url = 'url(images/' + file + ')';
+    return url; 
+},
+removeOverlay = function(){
+    $('body').css(
+        'background', 
+        getBackgroundImageUrl());
+    $('body').css('background-size', '100% 100%');
 },
 setBackground = function(){
-    $('body').css(
-        'background-image', 
-        'url(images/' + calculateBackgroundImageName() + ')');
+    removeOverlay();
+},
+setOverlay = function(){
+    var bgImageUrl = getBackgroundImageUrl();
+    var bg = 'linear-gradient(rgba(100, 100, 100, 0.90), rgba(100, 100, 100, 0.90)), ' + bgImageUrl;
+    
+    $('body').css('background', bg);
+    $('body').css('background-size', '100% 100%');
+},
+clearSearch = function(){
+    $('#search').val('');
+    $('#results').html('');
+    removeOverlay();
+},
+wireUpShortcuts = function(){
+    var esc = 27;
+        
+    $(document).keyup(function(e) {
+        console.log(e.keyCode);
+        if (e.keyCode === esc) { clearSearch(); return true; }
+    });
 };
-
-
 
 $(function(){
     setBackground();
     setAuthenticationHeaders();
     configureBloodhound();
+    wireUpShortcuts();
     focus();
 });
