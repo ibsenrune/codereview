@@ -43,11 +43,19 @@ configureBloodhound = function(){
 },
 focus = function(){
     $('#search').focus();
+},
+setBackground = function(){
+    var numBgImages = 10;
+    var today = new Date();
+    var date = today.getDate();
+    var index = date % numBgImages;
+    $('body').css('background-image', 'url(images/0' + index + '.jpg)');
 };
 
 
 
 $(function(){
+    setBackground();
     setAuthenticationHeaders();
     configureBloodhound();
     focus();
