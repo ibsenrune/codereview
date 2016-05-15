@@ -18,7 +18,8 @@ configureBloodhound = function(){
                     return {
                         name: result["name"],
                         summary: result["summary"],
-                        type: result["type"]
+                        type: result["type"],
+                        references : result["references"]
                     };
                 });
             }
@@ -46,7 +47,23 @@ configureBloodhound = function(){
         console.log(obj);
         console.log(datum);
 
-        $('#results').html('<h2>' + datum.name + '</h2>' + '<section>' + datum.summary + '</section>');
+        var result = '<h2>' + datum.name + '</h2>' + 
+            '<section>' + datum.summary + '</section>';
+            
+        if(datum.references.length > 0){
+            var references =
+                '<h3>References</h3>' +
+                '<section>' +
+                    '<a target="_blank" href="' + datum.references[0] + '">'
+                        + datum.references[0] +
+                    '</a>'
+                '</section>';
+                
+            result = result + references 
+        }
+            
+
+        $('#results').html(result);
     });
 },
 focus = function(){
