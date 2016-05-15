@@ -52,12 +52,18 @@ configureBloodhound = function(){
 focus = function(){
     $('#search').focus();
 },
-setBackground = function(){
-    var numBgImages = 10;
+calculateBackgroundImageName = function(){
+    var numBgImages = 31;
     var today = new Date();
     var date = today.getDate();
     var index = date % numBgImages;
-    $('body').css('background-image', 'url(images/0' + index + '.jpg)');
+    var imageName = index < 10 ? '0' + index : index;
+    return imageName + '.jpg';
+},
+setBackground = function(){
+    $('body').css(
+        'background-image', 
+        'url(images/' + calculateBackgroundImageName() + ')');
 };
 
 
