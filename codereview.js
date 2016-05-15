@@ -84,6 +84,7 @@ removeOverlay = function(){
         'background', 
         getBackgroundImageUrl());
     $('body').css('background-size', '100% 100%');
+    $('#tip').hide();
 },
 setBackground = function(){
     removeOverlay();
@@ -94,6 +95,8 @@ setOverlay = function(){
     
     $('body').css('background', bg);
     $('body').css('background-size', '100% 100%');
+    
+    $('#tip').show();
 },
 clearSearch = function(){
     $('#search').val('');

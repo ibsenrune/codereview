@@ -57,3 +57,10 @@ div.tt-menu{
     margin-top: 12px;
     width: 100%;
 }
+
+#tip {
+    display: none;
+    position: absolute;
+    bottom: 10;
+    left: 10; 
+}
