@@ -103,19 +103,23 @@ clearSearch = function(){
     $('#results').html('');
     removeOverlay();
 },
-wireUpShortcuts = function(){
-    var esc = 27;
-        
-    $(document).keyup(function(e) {
-        console.log(e.keyCode);
-        if (e.keyCode === esc) { clearSearch(); return true; }
+wireUpShortcuts = function(shortcuts){
+    shortcuts.forEach(function(sc){
+        $(document).bind(sc.event, sc.key, sc.fn);
+        $('#search').bind(sc.event, sc.key, sc.fn);
     });
+},
+configureShortcuts = function(){
+    var shortcuts = [
+        { event : 'keyup', key : 'esc', fn : clearSearch },
+    ];
+    wireUpShortcuts(shortcuts);
 };
 
 $(function(){
     setBackground();
     setAuthenticationHeaders();
     configureBloodhound();
-    wireUpShortcuts();
+    configureShortcuts();
     focus();
 });
