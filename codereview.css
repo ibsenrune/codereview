@@ -64,6 +64,9 @@ div.tt-menu{
     bottom: 10;
     left: 10; 
 }
+#tip table td{
+    padding: 0 4px;
+}
 
 #clipboard {
     border: none;
