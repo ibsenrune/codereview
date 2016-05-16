@@ -98,6 +98,28 @@ setOverlay = function(){
     
     $('#tip').show();
 },
+copyToClipboard = function(text){
+    var currentFocus = document.activeElement;
+    var clipBoard = $('#clipboard');
+    clipBoard
+    .val(text)
+    .focus()
+    [0].setSelectionRange(0, clipBoard.val().length);
+    var succeeded = false;
+    try{
+        succeeded = document.execCommand('copy');
+    }
+    catch(e){
+        console.log(e);
+        succeeded = false;
+    }
+    console.log(succeeded);
+    currentFocus.focus();
+    return succeeded;
+},
+copyMarkdownToClipboard = function(){
+    copyToClipboard('markdown');
+},
 clearSearch = function(){
     $('#search').val('');
     $('#results').html('');
@@ -112,6 +134,7 @@ wireUpShortcuts = function(shortcuts){
 configureShortcuts = function(){
     var shortcuts = [
         { event : 'keyup', key : 'esc', fn : clearSearch },
+        { event : 'keydown', key: 'ctrl+m', fn : copyMarkdownToClipboard},
     ];
     wireUpShortcuts(shortcuts);
 };
