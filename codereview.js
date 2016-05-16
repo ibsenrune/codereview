@@ -134,6 +134,9 @@ clearSearch = function(){
     $('#results').html('');
     removeOverlay();
 },
+configureFocus = function(){
+    $(window).on('focus', focus);
+},
 wireUpShortcuts = function(shortcuts){
     shortcuts.forEach(function(sc){
         $(document).bind(sc.event, sc.key, sc.fn);
@@ -153,5 +156,6 @@ $(function(){
     setAuthenticationHeaders();
     configureBloodhound();
     configureShortcuts();
+    configureFocus();
     focus();
 });
