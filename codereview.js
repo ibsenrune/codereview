@@ -51,15 +51,23 @@ configureBloodhound = function(){
             '<section>' + datum.summary + '</section>';
             
         if(datum.references.length > 0){
+            var url = datum.references[0];
             var references =
                 '<h3>References</h3>' +
                 '<section>' +
-                    '<a target="_blank" href="' + datum.references[0] + '">'
-                        + datum.references[0] +
+                    '<a target="_blank" href="' + url + '">'
+                        + url +
                     '</a>'
                 '</section>';
+            var markdown = 
+            '<h3>Markdown</h3>' +
+            '<section>' +
+                '<span class="markdown">' +
+                    '[' + datum.name + '](' + url + ')' +
+                '</span>' +
+            '</section>';
                 
-            result = result + references 
+            result = result + markdown + references; 
         }
         
         $('#results').html(result);
@@ -118,7 +126,8 @@ copyToClipboard = function(text){
     return succeeded;
 },
 copyMarkdownToClipboard = function(){
-    copyToClipboard('markdown');
+    var markdownText = $('#results span.markdown').text();
+    copyToClipboard(markdownText);
 },
 clearSearch = function(){
     $('#search').val('');
