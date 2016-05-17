@@ -133,6 +133,7 @@ clearSearch = function(){
     $('#search').val('');
     $('#results').html('');
     removeOverlay();
+    focus();
 },
 configureFocus = function(){
     $(window).on('focus', focus);
