@@ -133,6 +133,7 @@ clearSearch = function(){
     $('#search').val('');
     $('#results').html('');
     removeOverlay();
+    $('#search').typeahead('setQuery', '');
     focus();
 },
 configureFocus = function(){
