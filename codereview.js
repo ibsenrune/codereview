@@ -8,20 +8,22 @@ configureBloodhound = function(){
     var articles = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        limit: 8,
+        limit: 20,
         remote: { 
             url : 'https://codereview.search.windows.net/indexes/articles/docs/suggest?suggesterName=sg&fuzzy=true&api-version=2015-02-28&$select=*&search=%QUERY',
             wildcard : '%QUERY',
             transform: function(response){
-                return $.map(response.value, function(result) {
-                    console.log(result);
-                    return {
-                        name: result["name"],
-                        summary: result["summary"],
-                        type: result["type"],
-                        references : result["references"]
-                    };
-                });
+                var result = 
+                    $.map(response.value, function(result) {
+                        return {
+                            id: result["id"],
+                            name: result["name"],
+                            summary: result["summary"],
+                            type: result["type"],
+                            references : result["references"]
+                    }});
+                console.log(result);
+                return result;
             }
         }
     });
@@ -30,9 +32,10 @@ configureBloodhound = function(){
 
     $('#remote .typeahead').typeahead(null, {
         source: articles,
+        limit: 10,
         display: function(data){ return data.name; },
         templates: {
-            empty: '<div>Unable to find anything based on your search criteria.</div>',
+            empty: '<div class="empty-result">Unable to find anything based on your search criteria.</div>',
             suggestion: Handlebars.compile(
                 '<div class="suggestion">' +
                     '<div>' +
@@ -52,22 +55,18 @@ configureBloodhound = function(){
             
         if(datum.references.length > 0){
             var url = datum.references[0];
-            var references =
-                '<h3>References</h3>' +
-                '<section>' +
-                    '<a target="_blank" href="' + url + '">'
-                        + url +
-                    '</a>'
-                '</section>';
             var markdown = 
-            '<h3>Markdown</h3>' +
-            '<section>' +
-                '<span class="markdown">' +
-                    '[' + datum.name + '](' + url + ')' +
-                '</span>' +
-            '</section>';
+                '<h5>Markdown</h5>' +
+                '<section>' +
+                    '<span class="markdown">' +
+                        '[' + datum.name + '](<a target="_blank" href="' + url + '">' + url + '</a>)' +
+                    '</span>' +
+                '</section>';
                 
-            result = result + markdown + references; 
+            var aside =
+                '<aside>' + markdown + '</aside>';
+                
+            result = result + aside; 
         }
         
         $('#results').html(result);
@@ -105,6 +104,8 @@ setOverlay = function(){
     $('body').css('background-size', '100% 100%');
     
     $('#tip').show();
+    
+    $('#search').blur();
 },
 copyToClipboard = function(text){
     var currentFocus = document.activeElement;

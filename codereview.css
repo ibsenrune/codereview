@@ -28,7 +28,10 @@ body {
 div.suggestion{
     text-align: left;
 }
-
+div.empty-result { 
+    font-weight: bold;
+    padding: 0.5em; 
+}
 div.suggestion div.name {
     font-weight: bold;
     float: left;
@@ -79,4 +82,9 @@ div.tt-menu{
     top: 0;
     left: -9999px;
     padding: 0;
+}
+
+aside { margin-top: 2em; }
+aside section {
+    font-size: 0.7em;
 }
