@@ -83,13 +83,19 @@ getBackgroundImageUrl = function(){
     var index = date % numBgImages;
     var imageName = index < 10 ? '0' + index : index;
     var file = imageName + '.jpg';
-    var url = 'url(//reviewmaintainablecode.blob.core.windows.net/bgimages/' + file + ')';
+    var url = '//reviewmaintainablecode.blob.core.windows.net/bgimages/' + file;
     return url; 
+},
+prepareBackgroundImage = function(){
+    var img = $('<img style="display: none;">');
+    img.load(setBackground);
+    img.attr('src', getBackgroundImageUrl());
+    $('body').append(img);
 },
 removeOverlay = function(){
     $('body').css(
         'background', 
-        getBackgroundImageUrl());
+        'url(' + getBackgroundImageUrl() + ')');
     $('body').css('background-size', '100% 100%');
     $('#tip').hide();
 },
@@ -98,7 +104,7 @@ setBackground = function(){
 },
 setOverlay = function(){
     var bgImageUrl = getBackgroundImageUrl();
-    var bg = 'linear-gradient(rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.80)), ' + bgImageUrl;
+    var bg = 'linear-gradient(rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.80)), url(' + bgImageUrl + ')';
     
     $('body').css('background', bg);
     $('body').css('background-size', '100% 100%');
@@ -156,7 +162,7 @@ configureShortcuts = function(){
 };
 
 $(function(){
-    setBackground();
+    prepareBackgroundImage();
     setAuthenticationHeaders();
     configureBloodhound();
     configureShortcuts();
