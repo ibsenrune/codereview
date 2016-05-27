@@ -129,6 +129,7 @@ copyToClipboard = function(text){
 copyMarkdownToClipboard = function(){
     var markdownText = $('#results span.markdown').text();
     copyToClipboard(markdownText);
+    $('#search').focus();
 },
 clearSearch = function(){
     $('#search').val('');
