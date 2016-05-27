@@ -83,7 +83,7 @@ getBackgroundImageUrl = function(){
     var index = date % numBgImages;
     var imageName = index < 10 ? '0' + index : index;
     var file = imageName + '.jpg';
-    var url = 'url(images/' + file + ')';
+    var url = 'url(//reviewmaintainablecode.blob.core.windows.net/bgimages/' + file + ')';
     return url; 
 },
 removeOverlay = function(){
